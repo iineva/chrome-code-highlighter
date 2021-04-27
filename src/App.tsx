@@ -46,7 +46,7 @@ function App() {
   return (
     <>
       <SyntaxHighlighter
-        language={"yaml"}
+        language={langs[0]}
         customStyle={{margin: 0, height: "100vh", paddingRight: 0, boxSizing: "border-box"}}
         lineNumberStyle={{minWidth: "2.5em"}}
         style={sublime}
