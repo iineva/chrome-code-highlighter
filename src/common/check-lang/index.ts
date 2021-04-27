@@ -12,6 +12,9 @@ const popLangs = [{
 }, {
     code: "ini",
     search: [".conf"]
+}, {
+    code: "xml",
+    search: [".xml", ".html"]
 }]
 
 function checkSyntaxHighlighter(path: string): string[] {
@@ -63,7 +66,7 @@ function checkSyntaxHighlighter(path: string): string[] {
 
 export function checkLangs(path: string): string[] {
     const lang = checkSyntaxHighlighter(path)
-    console.info(`Detection language: ${path} ==> ${lang || "ini[default]"}`)
+    console.info(`Detection language: ${path} ==> ${lang.length ? lang : "ini[default]"}`)
     return lang.length ? lang : ["ini"]
 }
 

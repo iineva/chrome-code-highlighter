@@ -26,5 +26,5 @@ if (isPlanTextContent || process.env.REACT_APP_BUILD_TARGET !== "extension") {
   // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
   reportWebVitals();
 } else {
-  console.info("chrome-extension-highlighter skip render")
+  console.info("chrome-extension-highlighter: skip render")
 }
