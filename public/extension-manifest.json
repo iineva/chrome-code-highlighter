@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Create React Chrome Extension - TypeScript",
+    "name": "Chrome Extension - Highlighter",
     "version": "0.1.0",
-    "description": "A lightweight boilerplate for building a Chrome extension with React, TypeScript and Webpack.",
+    "description": "Chrome extension code highlighter.",
     "author": "Jakub Pixochi Kozak",
     "icons": {
         "16": "icon16.png",
