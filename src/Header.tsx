@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { Space, Checkbox, Select, Button, message } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
-import themes, { getDefaultTheme, setDefaultTheme, getTheme } from './themes';
-import { checkLangs } from "./common/check-lang";
+import themes, { getDefaultTheme, setDefaultTheme } from './themes';
+import { checkLangs, DEFAULT_LANG } from "./common/check-lang";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { useCopyToClipboard } from 'react-use';
+import storage from './common/storage'
 
 message.config({
   top: 100,
@@ -27,19 +28,19 @@ const themeGroupedOptions = [{
 
 const DEFAULT_LANGAUGE = "DEFAULT_LANGAUGE"
 const getDefaultLanguageKey = () => `${DEFAULT_LANGAUGE}:${window.location.origin + window.location.pathname}`
-function setDefaultLangauge(lang: string) {
-  localStorage.setItem(getDefaultLanguageKey(), lang)
+async function setDefaultLangauge(lang: string) {
+  return storage.setItem(getDefaultLanguageKey(), lang)
 }
-function getDefaultLanguage() {
-  return localStorage.getItem(getDefaultLanguageKey()) || langs[0]
+async function getDefaultLanguage() {
+  return await storage.getItem(getDefaultLanguageKey()) || langs[0] || DEFAULT_LANG
 }
 
 const DEFAULT_SHOW_LINE_NUMBERS = "DEFAULT_SHOW_LINE_NUMBERS"
-function getDefaultShowLineNumbers() {
-  return localStorage.getItem(DEFAULT_SHOW_LINE_NUMBERS) === "true"
+async function getDefaultShowLineNumbers() {
+  return await storage.getItem(DEFAULT_SHOW_LINE_NUMBERS) === "true"
 }
 function setDefaultShowLineNumbers(show: boolean) {
-  localStorage.setItem(DEFAULT_SHOW_LINE_NUMBERS, show ? "true" : "false")
+  return storage.setItem(DEFAULT_SHOW_LINE_NUMBERS, show ? "true" : "false")
 }
 
 
@@ -61,11 +62,11 @@ function Header({ codeString, theme, language, showLineNumbers, onThemeChange, o
         <Select
           showSearch
           placeholder="Select Theme"
-          defaultValue={theme?.id}
+          value={theme}
           style={{ width: 200 }}
           onChange={(opt) => {
             setDefaultTheme(opt)
-            onThemeChange && onThemeChange(getTheme(opt))
+            onThemeChange && onThemeChange(opt)
           }}
         >
           {themeGroupedOptions.map((v, i) => (
@@ -80,7 +81,7 @@ function Header({ codeString, theme, language, showLineNumbers, onThemeChange, o
         <Select
           showSearch
           placeholder="Select Language"
-          defaultValue={language}
+          value={language}
           style={{ width: 200 }}
           onChange={(opt) => {
             setDefaultLangauge(opt)

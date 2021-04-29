@@ -1,5 +1,6 @@
 import { capitalCase, paramCase } from "change-case"
 import * as themes from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import storage from './common/storage'
 
 const themeList = Object.keys(themes).map(k => ({
   id: paramCase(k),
@@ -8,9 +9,9 @@ const themeList = Object.keys(themes).map(k => ({
 }))
 
 const DEFAULT_THEME_KEY = "DEFAULT_THEME_KEY"
-export const getDefaultTheme = () => {
-  const id = localStorage.getItem(DEFAULT_THEME_KEY) || "monokai-sublime"
-  return getTheme(id)
+export const DEFAULT_THEME = "monokai-sublime"
+export const getDefaultTheme = async () => {
+  return (await storage.getItem(DEFAULT_THEME_KEY)) || DEFAULT_THEME
 }
 
 export const getTheme = (id: string) => {
@@ -18,12 +19,11 @@ export const getTheme = (id: string) => {
     if (t.id === id) {
       return true
     }
-  })
+  }) || themeList[0]
 }
 
-export const setDefaultTheme = (k: string) => {
-  localStorage.setItem(DEFAULT_THEME_KEY, k)
+export const setDefaultTheme = async (k: string) => {
+  await storage.setItem(DEFAULT_THEME_KEY, k)
 }
-
 
 export default themeList

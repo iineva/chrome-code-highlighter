@@ -14,20 +14,22 @@
             "<all_urls>"
         ],
         "js": [
-            "main.js"
-        ],
-        "css": [
-            "main.css"
+            "chrome.index.js"
         ],
         "run_at": "document_start"
     }],
     "web_accessible_resources": [
-        "static/*"
+        "main.css",
+        "main.js"
     ],
     "background": {
         "scripts": [
             "background.js"
         ],
         "persistent": false
-    }
+    },
+    "permissions": [
+        "storage",
+        "activeTab"
+    ]
 }

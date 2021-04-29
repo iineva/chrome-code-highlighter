@@ -4,6 +4,7 @@ import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { useState, useEffect } from 'react';
 import virtualizedRenderer from './virtualizedRenderer'; 
 import Header from './Header';
+import { getTheme } from './themes';
 
 function App() {
 
@@ -11,10 +12,23 @@ function App() {
   const [showRaw, setShowRaw] = useState(false)
   const [codeString, setCodeString] = useState(pre && pre.textContent)
   const [htmlOrgBg] = useState(document.querySelector("html")!.style.background)
-  const [theme, setTheme] = useState(Header.getDefaultTheme())
-  const [language, setLanguage] = useState(Header.getDefaultLanguage())
-  const [showLineNumbers, setShowLineNumbers] = useState(Header.getDefaultShowLineNumbers())
+  const [theme, setTheme] = useState('')
+  const [language, setLanguage] = useState('')
+  const [showLineNumbers, setShowLineNumbers] = useState(false)
+  const [loadingSetting, setLoadingSetting] = useState(true)
 
+  useEffect(() => {
+    if (loadingSetting) {
+      (async () => {
+        setTheme(await Header.getDefaultTheme())
+        setLanguage(await Header.getDefaultLanguage())
+        setShowLineNumbers(await Header.getDefaultShowLineNumbers())
+        setLoadingSetting(false)
+      })();
+    }
+  }, [loadingSetting === true])
+
+  const themeObj = getTheme(theme)
   useEffect(() => {
     if (pre) {
       pre.hidden = !showRaw
@@ -22,7 +36,7 @@ function App() {
     if (showRaw) {
       document.querySelector("html")!.style.background = htmlOrgBg
     } else {
-      document.querySelector("html")!.style.background = theme?.value.hljs.background
+      document.querySelector("html")!.style.background = themeObj.value.hljs.background
     }
     document.body.style.padding = "0";
     document.body.style.margin = "0";
@@ -62,14 +76,14 @@ function App() {
           flex: 1,
         }}
         lineNumberStyle={{minWidth: "2.5em"}}
-        style={theme?.value}
+        style={themeObj.value}
         showLineNumbers={showLineNumbers}
         showInlineLineNumbers={true}
         wrapLines={true}
         wrapLongLines={true}
         renderer={virtualizedRenderer({overscanRowCount: 100, autoFocus: true})}
       >
-        {codeString}
+        {loadingSetting ? '' : codeString}
       </SyntaxHighlighter>
     </div>
   );

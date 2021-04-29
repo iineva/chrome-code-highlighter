@@ -2,6 +2,8 @@
 import langData from './languages.yaml';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
+export const DEFAULT_LANG = "ini"
+
 const keys = Object.keys(langData)
 const popLangs = [{
     code: "objectivec",
@@ -66,8 +68,8 @@ function checkSyntaxHighlighter(path: string): string[] {
 
 export function checkLangs(path: string): string[] {
     const lang = checkSyntaxHighlighter(path)
-    console.info(`Detection language: ${path} ==> ${lang.length ? lang : "ini[default]"}`)
-    return lang.length ? lang : ["ini"]
+    console.info(`Detection language: ${path} ==> ${lang.length ? lang : DEFAULT_LANG + "[default]"}`)
+    return lang.length ? lang : [DEFAULT_LANG]
 }
 
 export default checkLangs
