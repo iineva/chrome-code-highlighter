@@ -6,6 +6,9 @@ export const DEFAULT_LANG = "ini"
 
 const keys = Object.keys(langData)
 const popLangs = [{
+    code: "javascript",
+    search: [".js", , ".jsx", ".ts", ".tsx"]
+},{
     code: "objectivec",
     search: [".mm", ".m"]
 }, {
