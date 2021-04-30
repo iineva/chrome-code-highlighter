@@ -2,12 +2,18 @@
 
 ![](snapshot/1.jpg)
 
-### Features
+## Features
 
-* Base on [react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) with [highlightjs.org](https://highlightjs.org/)
-* Support 190 languages
+* Support 191 languages, such as `json` `yaml` `java` ...
 * Support 97 themes
 * Automatically detect languages
+* Automatically detect all plain text content, such as `GitHub` and `GitLab` raw content.
+
+## Dependent
+
+* [create-react-chrome-extension-ts](https://github.com/pixochi/create-react-chrome-extension-ts)
+* [react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) with [highlightjs.org](https://highlightjs.org/)
+* [ant.design](https://ant.design/)
 
 
 ## Available Scripts
