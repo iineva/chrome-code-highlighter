@@ -21,10 +21,13 @@ if (document.body) {
 }
 
 function setupApp() {
+    // document.body.querySelector("pre").innerHTML is empty for now.
     const isPlanTextContent =
         document.head.innerHTML === "" &&
         document.body.querySelectorAll("pre").length === 1 &&
-        document.body.querySelector("pre").innerHTML == ""
+        document.body.querySelector("pre").innerHTML === "" &&
+        // skip local servers
+        ['localhost', '127.0.0.1', '0.0.0.0'].indexOf(window.location.hostname.toLowerCase()) !== -1
 
     if (isPlanTextContent) {
         // inject css

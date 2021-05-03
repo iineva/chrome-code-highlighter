@@ -69,10 +69,10 @@ function checkSyntaxHighlighter(path: string): string[] {
     })
 }
 
-export function checkLangs(path: string): string[] {
+export function checkLangs(path: string, def: string[]): string[] {
     const lang = checkSyntaxHighlighter(path)
-    console.info(`Detection language: ${path} ==> ${lang.length ? lang : DEFAULT_LANG + "[default]"}`)
-    return lang.length ? lang : [DEFAULT_LANG]
+    console.info(`Detection language: ${path} ==> ${lang.length ? lang : def + "[default]"}`)
+    return lang.length ? lang : def
 }
 
 export default checkLangs

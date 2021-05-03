@@ -14,7 +14,7 @@ message.config({
 
 const { Option, OptGroup } = Select;
 
-const langs = checkLangs(window.location.pathname)
+const langs = checkLangs(window.location.pathname, [DEFAULT_LANG])
 
 const themeOptions = themes.map(t => ({value: t.id, label: t.name}))
 const recommendThemes = ['monokai-sublime', 'idea', 'github', 'github-gist', 'googlecode', 'stackoverflow-light', 'stackoverflow-dark']
