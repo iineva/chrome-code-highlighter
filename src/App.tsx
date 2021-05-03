@@ -5,6 +5,9 @@ import { useState, useEffect } from 'react';
 import virtualizedRenderer from './virtualizedRenderer'; 
 import Header from './Header';
 import { getTheme } from './themes';
+import { useHotkeys } from 'react-hotkeys-hook';
+
+const isMacOS = navigator.platform.toLocaleLowerCase().indexOf('mac') !== -1
 
 function App() {
 
@@ -16,6 +19,17 @@ function App() {
   const [language, setLanguage] = useState('')
   const [showLineNumbers, setShowLineNumbers] = useState(false)
   const [loadingSetting, setLoadingSetting] = useState(true)
+  
+  // const [searchText, setSearchText] = useState('')
+  const [searchEnable, setSearchEnable] = useState(false)
+
+
+  const handleFindShortcut = (e) => {
+    // @ts-ignore
+    setSearchEnable(true)
+  }
+  useHotkeys('ctrl+f', handleFindShortcut, { enabled: !isMacOS });
+  useHotkeys('command+f', handleFindShortcut, { enabled: isMacOS });
 
   useEffect(() => {
     if (loadingSetting) {
@@ -54,6 +68,13 @@ function App() {
     }
   }, [showRaw, theme]);
 
+  // when user search content, disable react-virtualized
+  let renderer = null
+  if (!searchEnable) {
+    // @ts-ignore
+    renderer = virtualizedRenderer({overscanRowCount: 100, autoFocus: true})
+  }
+
   return (
     <div className="App">
       <Header
@@ -81,7 +102,7 @@ function App() {
         showInlineLineNumbers={true}
         wrapLines={true}
         wrapLongLines={true}
-        renderer={virtualizedRenderer({overscanRowCount: 100, autoFocus: true})}
+        renderer={renderer}
       >
         {loadingSetting ? '' : codeString}
       </SyntaxHighlighter>

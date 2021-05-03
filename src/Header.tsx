@@ -5,7 +5,7 @@ import themes, { getDefaultTheme, setDefaultTheme } from './themes';
 import { checkLangs, DEFAULT_LANG } from "./common/check-lang";
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { useCopyToClipboard } from 'react-use';
-import storage from './common/storage'
+import storage from './common/storage';
 
 message.config({
   top: 100,
@@ -110,8 +110,8 @@ function Header({ codeString, theme, language, showLineNumbers, onThemeChange, o
   )
 }
 
-Header.getDefaultLanguage = getDefaultLanguage
 Header.getDefaultTheme = getDefaultTheme
+Header.getDefaultLanguage = getDefaultLanguage
 Header.getDefaultShowLineNumbers = getDefaultShowLineNumbers
 
 export default Header
